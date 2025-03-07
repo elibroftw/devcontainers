@@ -4,7 +4,6 @@
   - Fedora base
   - `bash` (for "Unix" shell scripting)
   - `python` (latest 3.X for scripting purposes)
-  - `git`
   - `nix` (with flakes enabled)
   - `just` (command runner)
   - infisical (secret management)
