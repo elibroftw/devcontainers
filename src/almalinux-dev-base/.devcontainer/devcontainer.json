@@ -1,7 +1,10 @@
 {
 	"name": "AlmaLinux Development Common",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"options": [
+            "--platform=linux/amd64,linux/arm64"
+        ]
 	},
 
 	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
