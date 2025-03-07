@@ -1,6 +1,6 @@
 {
     "id": "almalinux-dev-base",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "name": "AlmaLinux Development Common",
     "description": "A base distro that doesn't have need to install anything extra to get started with development",
     "documentationURL": "https://github.com/elibroftw/devcontainers#readme",
