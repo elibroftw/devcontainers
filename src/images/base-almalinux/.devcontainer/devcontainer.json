@@ -1,16 +1,16 @@
 {
-	"name": "AlmaLinux Development Common",
+	"name": "AlmaLinux Base for Devs",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
 
 	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
-	// "features": {},
+	"features": {},
 
 	// common ports that need to be accessed locally (e.g. Axum, actix-web / xitca-web, flask / ASP.NET, blog post, postgresql, mongodb)
 	// NOTE: 5284 is uncommon and will be removed once I migrate to using port 5000 for my ASP.NET project.
 	// 	Use ports 500X instead for microservices in your mono-repo
-	"forwardPorts": [3000, 8080, 5000, 5001, 5002, 5432, 27017, 5284],
+	"forwardPorts": [3000, 8000, 8080, 5000, 5001, 5002, 5432, 27017, 5284],
 	// 👇 Use 'postCreateCommand' to run commands after the container is created.
 
 	// 👇 Configure tool-specific properties.
@@ -20,15 +20,15 @@
 				"ElijahLopez.just-recipe-runner",
 				"redhat.vscode-yaml",
 				"timonwong.shellcheck",
+				"tamasfe.even-better-toml",
 				"github.vscode-github-actions",
-				"mhutchie.git-graph"
+				"mhutchie.git-graph",
+				"EditorConfig.EditorConfig",
+				"charliermarsh.ruff",
+				"ms-python.python",
+				"ms-python.debugpy"
 			]
 		}
 	},
-	"features": {
-		
-	}
-
-	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "vscode"
 }

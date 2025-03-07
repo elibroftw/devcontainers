@@ -1,0 +1,7 @@
+{
+    "name": "Sqlx",
+    "id": "sqlx",
+    "version": "0.0.1",
+    "description": "Include sqlx in your dev container",
+    "options": {}
+}

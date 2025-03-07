@@ -1,8 +1,8 @@
 {
-    "id": "almalinux-dev-base",
+    "id": "rust-full-stack-backend",
     "version": "0.0.1",
-    "name": "AlmaLinux Development Common",
-    "description": "A base distro that doesn't have need to install anything extra to get started with development",
+    "name": "AlmaLinux Rust Axum Full Stack Template",
+    "description": "A dev environment for programming an Axum backend with sqlx and frontend tooling (nvm, node LTS, bun)",
     "documentationURL": "https://github.com/elibroftw/devcontainers#readme",
     "licenseURL": "https://github.com/elibroftw/devcontainers/blob/master/LICENSE",
     "options": {},

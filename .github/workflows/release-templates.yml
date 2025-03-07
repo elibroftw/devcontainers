@@ -1,4 +1,4 @@
-name: "Release Dev Container Templates & Generate Documentation"
+name: "Release Dev Container Templates and Features"
 on:
   workflow_dispatch:
 
@@ -13,11 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: "Publish Templates"
         uses: devcontainers/action@v1
         with:
           publish-templates: "true"
-          base-path-to-templates: "./src"
+          base-path-to-templates: "./src/templates"
+          templates-namespace: "elibroftw/devcontainers/templates"
+          publish-features: "true"
+          base-path-to-features: "./src/features"
+          features-namespace: "elibroftw/devcontainers/features"
           generate-docs: "true"
 
         env:

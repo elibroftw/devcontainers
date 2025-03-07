@@ -12,7 +12,7 @@ jobs:
         id: filter
         with:
           filters: |
-            almalinux-dev-base: ./**/almalinux-dev-base/**
+            base-almalinux: ./**/almalinux-dev-base/**
 
   test:
     needs: [detect-changes]
