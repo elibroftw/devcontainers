@@ -3,12 +3,12 @@
 - Common Includes
   - Fedora base
   - `bash` (for "Unix" shell scripting)
-  - `pwsh` (powershell 7+, for cross-platform shell scripting)
   - `python` (latest 3.X for scripting purposes)
   - `git`
   - `nix` (with flakes enabled)
   - `just` (command runner)
   - infisical (secret management)
+  - `yq` and `jq`
 
 Possible Features (R&D required)
 
