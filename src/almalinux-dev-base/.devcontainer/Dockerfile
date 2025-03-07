@@ -1,4 +1,4 @@
-FROM almalinux
+FROM rockylinux
 
 # see:
 # buildpack-deps:nobel-curl https://github.com/docker-library/buildpack-deps/blob/master/ubuntu/noble/curl/Dockerfile
