@@ -1,0 +1,22 @@
+name: 'Smoke test'
+inputs:
+  template:
+    description: 'Template to test'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      id: checkout
+      uses: actions/checkout@v4
+
+    - name: Build template
+      id: build_template
+      shell: bash
+      run: scripts/build.sh ${{ inputs.template }}
+
+    - name: Test template
+      id: test_template
+      shell: bash
+      run: scripts/test.sh ${{ inputs.template }}
