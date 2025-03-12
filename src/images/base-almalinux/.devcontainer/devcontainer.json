@@ -6,6 +6,10 @@
 
 	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {},
+	// Enables you to SSH into servers (useful for Ansible)
+	"mounts": [
+		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly"
+	],
 
 	// common ports that need to be accessed locally (e.g. Axum, actix-web / xitca-web, flask / ASP.NET, blog post, postgresql, mongodb)
 	// NOTE: 5284 is uncommon and will be removed once I migrate to using port 5000 for my ASP.NET project.
