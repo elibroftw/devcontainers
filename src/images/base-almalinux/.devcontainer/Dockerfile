@@ -15,7 +15,8 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     procps \
     dnf-plugins-core \
     git \
-    infisical
+    infisical \
+    ansible-core
 
 # Install yq
 RUN wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
