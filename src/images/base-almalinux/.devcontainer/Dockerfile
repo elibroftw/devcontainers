@@ -1,9 +1,6 @@
 ARG VARIANT="latest"
 FROM almalinux:${VARIANT}
 
-# https://docs.fedoraproject.org/en-US/epel/getting-started/
-RUN dnf config-manager --set-enabled crb
-
     # Add Infisical repository
 RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.rpm.sh' | sh && \
     dnf install -y epel-release && \
@@ -22,6 +19,9 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     git \
     infisical \
     ansible
+
+# https://docs.fedoraproject.org/en-US/epel/getting-started/
+RUN dnf config-manager --set-enabled crb
 
 # Symlink vim to vi
 RUN ln -s /usr/bin/vim /usr/bin/vi
