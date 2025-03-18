@@ -23,9 +23,6 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
 # https://docs.fedoraproject.org/en-US/epel/getting-started/
 RUN dnf config-manager --set-enabled crb
 
-# Symlink vim to vi
-RUN ln -s /usr/bin/vim /usr/bin/vi
-
 # Install yq
 RUN wget -q https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
 
