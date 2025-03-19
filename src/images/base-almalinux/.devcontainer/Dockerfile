@@ -19,7 +19,6 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     git \
     infisical \
     ansible \
-    eza \
     ripgrep
 
 # Set ripgrep config location
