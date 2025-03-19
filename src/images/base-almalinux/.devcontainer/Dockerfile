@@ -18,7 +18,13 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     dnf-plugins-core \
     git \
     infisical \
-    ansible
+    ansible \
+    eza \
+    ripgrep
+
+# Set ripgrep config location
+COPY ./rg.conf /etc/rg.conf
+ENV RIPGREP_CONFIG_PATH /etc/rg.conf
 
 # https://docs.fedoraproject.org/en-US/epel/getting-started/
 RUN dnf config-manager --set-enabled crb

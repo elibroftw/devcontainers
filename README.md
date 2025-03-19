@@ -12,8 +12,11 @@ AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base
   - `powershell`
 - `python3` (latest 3.X for scripting purposes)
 - `just` (command runner)
-- infisical (secret management)
 - `yq` (like jq, but supports yaml and toml files)
+- ansible (for deployment)
+- eza (ls successor)
+- ripgrep (grep successor)
+- infisical (secret management)
 
 Features & Templates to Research & create
 
