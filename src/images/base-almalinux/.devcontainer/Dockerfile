@@ -43,6 +43,9 @@ RUN curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/
 ENV PATH="${PATH}:/nix/var/nix/profiles/default/bin"
 RUN nix run nixpkgs#hello
 
+# Install eza via nix
+RUN nix profile install nixpkgs#eza
+
 # Install powershell
 RUN dnf install -y krb5-libs libicu openssl-libs zlib
 RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh && \
