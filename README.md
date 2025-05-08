@@ -2,6 +2,14 @@
 
 Contains an AlamLinux base image, frontend features, and templates. [Rationale](#rationale)
 
+Example Usage (`.devcontainer\devcontainer.json`)
+
+```json
+{
+  "image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux"
+}
+```
+
 AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base-almalinux`
 
 - AlmaLinux base (RHEL API guarantee, Fedora is the upstream)
