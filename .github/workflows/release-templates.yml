@@ -26,15 +26,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Publish Templates"
-        uses: devcontainers/action@v1
-        with:
-          publish-templates: "true"
-          base-path-to-templates: "./src/templates"
-          templates-namespace: "elibroftw/devcontainers/templates"
-          generate-docs: "true"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: "Publish Templates"
+      #   uses: devcontainers/action@v1
+      #   with:
+      #     publish-templates: "true"
+      #     base-path-to-templates: "./src/templates"
+      #     templates-namespace: "elibroftw/devcontainers/templates"
+      #     generate-docs: "true"
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create PR for Documentation
         id: push_image_info
