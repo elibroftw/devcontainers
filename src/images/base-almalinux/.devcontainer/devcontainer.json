@@ -8,7 +8,8 @@
 	"features": {},
 	// Enables you to SSH into servers (useful for Ansible)
 	"mounts": [
-		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly"
+		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly",
+		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/Downloads,target=/home/vscode/Downloads"
 	],
 
 	// common ports that need to be accessed locally (e.g. Axum, actix-web / xitca-web, flask / ASP.NET, blog post, postgresql, mongodb)
