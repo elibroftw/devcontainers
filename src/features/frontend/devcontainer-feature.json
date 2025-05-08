@@ -1,22 +1,23 @@
 {
-    "name": "frontend",
+    "name": "Frontend",
     "id": "frontend",
-    "version": "0.0.1",
-    "description": "Include packages needed for frontend development",
+    "version": "0.0.6",
+    "description": "Install packages needed for frontend development",
     "options": {},
     "customizations": {
         "vscode": {
-			"extensions": [
-				"astro-build.astro-vscode",
+            "extensions": [
+                "astro-build.astro-vscode",
                 "NuclleaR.vscode-extension-auto-import",
                 "aeschli.vscode-css-formatter",
                 "oven.bun-vscode",
                 "dbaeumer.vscode-eslint",
                 "svelte.svelte-vscode",
                 "jasonnutter.search-node-modules"
-			]
-		}
+            ]
+        }
     },
-    // use .nvmrc specified version if the file exists
-    "postStartCommand": "(nvm install && corepack enable) || true"
+    "postAttachCommand": "",
+    // use .nvmrc specified version if the file exists otherwise default to lts
+    "postStartCommand": "(nvm use 2&>/dev/null || nvm use --lts) && corepack enable"
 }
