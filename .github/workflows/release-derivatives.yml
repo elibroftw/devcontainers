@@ -1,7 +1,9 @@
-name: "Release Dev Container Templates and Features"
+name: "Release Dev Container Derivatives"
 on:
   workflow_dispatch:
-
+# TODO: run on every push, but filter when to run an action based on the following:
+# git show $revision -- src/features/^C
+# git show $revision -- src/templates/^C
 jobs:
   deploy:
     if: ${{ github.ref == 'refs/heads/master' }}
@@ -16,17 +18,23 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
+      - name: "Publish Features"
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./src/features"
+          features-namespace: "elibroftw/devcontainers/features"
+          generate-docs: "true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: "Publish Templates"
         uses: devcontainers/action@v1
         with:
           publish-templates: "true"
           base-path-to-templates: "./src/templates"
           templates-namespace: "elibroftw/devcontainers/templates"
-          publish-features: "true"
-          base-path-to-features: "./src/features"
-          features-namespace: "elibroftw/devcontainers/features"
           generate-docs: "true"
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -43,12 +51,14 @@ jobs:
           git config --global user.name github-actions[bot]
           git config pull.rebase false
 
+          shopt -s globstar # Enable recursive globbing for **
+
           branch=automated-documentation-update-$GITHUB_RUN_ID
           git checkout -b $branch
           message='Automated documentation update'
 
           # Add / update and commit
-          git add */**/README.md
+          git add $(git status --porcelain -- */*README.md  | cut -b4-)
           git commit -m 'Automated documentation update [skip ci]' || export NO_UPDATES=true
 
           # Push

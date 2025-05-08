@@ -1,0 +1,7 @@
+{
+    "name": "Rust",
+    "id": "rust",
+    "version": "0.0.4",
+    "description": "Executes rustup non-interactively to install rust and cargo",
+    "options": {}
+}
