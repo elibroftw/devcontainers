@@ -1,8 +1,8 @@
 {
-    "name": "frontend",
+    "name": "Frontend",
     "id": "frontend",
-    "version": "0.0.1",
-    "description": "Include packages needed for frontend development",
+    "version": "0.0.5",
+    "description": "Install packages needed for frontend development",
     "options": {},
     "customizations": {
         "vscode": {
@@ -16,7 +16,8 @@
                 "jasonnutter.search-node-modules"
 			]
 		}
-    },
+    }
+    // "postAttachCommand": "",
     // use .nvmrc specified version if the file exists
-    "postStartCommand": "(nvm install && corepack enable) || true"
+    // "postStartCommand": "(nvm install && corepack enable) || true"
 }
