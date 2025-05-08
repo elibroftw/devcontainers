@@ -89,8 +89,29 @@ If you follow Microsoft's own tutorials, it will lead you to improperly create a
 2. They don't teach you how to properly build your Dockerfile so that it works on ARM (aarch64).
 3. They don't teach you how to use non-Microsoft hosted distros (i.e. non-debian, non-ubuntu, non-alpine) like I have done. They actually try to [dissuade you](https://github.com/devcontainers/images/tree/main/build#the-build-namespace) from using anything other than debian and ubuntu images.
 
-### why not AlPiNe
+### Why not AlPiNe
 
 Similar logic to Debian, if I'm not daily driving it, I'm not going to use it for a dev environment nor for deployment.
 
 Also read [Why I Will Never Use Alpine Linux Ever Again (2023)](https://medium.com/better-programming/why-i-will-never-use-alpine-linux-ever-again-a324fd0cbfd6) which explains that using Node or Python's numpy has different results.
+
+## Feature Development Advise
+
+Feature installs scripts are run as the root user. This means that without changing the user, I was installing features accessible only by the root user.
+
+While debugging, I realized this fact, so if you are developing your own features, make sure when you are "installing" packages inside an `install.sh` feature script, you switch to the expected container user first:
+
+`su - "$_REMOTE_USER"`
+
+If for some reason this isn't enough for your use-case, or you need to maintain being the root user, you can read the [rust-Debian](https://github.com/devcontainers/features/blob/main/src/rust/install.sh) feature implementation for more ideas.
+
+
+```bash
+POSSIBLE_USERS=("vscode" "node" "codespace" "$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)")
+for CURRENT_USER in "${POSSIBLE_USERS[@]}"; do
+    if id -u "${CURRENT_USER}" > /dev/null 2>&1; then
+        USERNAME=${CURRENT_USER}
+        break
+    fi
+done
+```

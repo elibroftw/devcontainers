@@ -1,10 +1,11 @@
 {
-	"name": "AlmaLinux Rust Axum Postgresql (Backend)",
+	"name": "AlmaLinux Rust Full Stack (Axum, PostgreSQL, JavaScript runtime)",
 	"image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux",
 
 	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {
-		"ghcr.io/devcontainers/features/rust": {},
+		"ghcr.io/elibroftw/devcontainers/features/rust": {},
+		"ghcr.io/elibroftw/devcontainers/features/sqlx": {},
 		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
 	},
 
@@ -18,11 +19,6 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ElijahLopez.just-recipe-runner",
-				"redhat.vscode-yaml",
-				"timonwong.shellcheck",
-				"github.vscode-github-actions",
-				"mhutchie.git-graph"
 			]
 		}
 	}
