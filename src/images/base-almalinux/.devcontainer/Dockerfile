@@ -10,6 +10,7 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     dnf install -y --allowerasing \
     # buildpack-deps equivalent
     ca-certificates curl gnupg2 wget tzdata \
+    unzip \
     # remoteUser support
     shadow sudo \
     python3 \

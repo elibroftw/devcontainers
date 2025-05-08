@@ -1,4 +1,4 @@
-name: "Release Dev Container Templates and Features"
+name: "Release Dev Container Derivatives"
 on:
   workflow_dispatch:
 
