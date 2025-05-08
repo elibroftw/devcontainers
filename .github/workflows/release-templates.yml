@@ -22,11 +22,17 @@ jobs:
           publish-templates: "true"
           base-path-to-templates: "./src/templates"
           templates-namespace: "elibroftw/devcontainers/templates"
+          generate-docs: "true"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Publish Features"
+        uses: devcontainers/action@v1
+        with:
           publish-features: "true"
           base-path-to-features: "./src/features"
           features-namespace: "elibroftw/devcontainers/features"
           generate-docs: "true"
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
