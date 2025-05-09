@@ -14,6 +14,7 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     # remoteUser support
     shadow sudo \
     alsa-lib-devel \
+    openssl-devel \
     python3 \
     python3-pip \
     procps \
