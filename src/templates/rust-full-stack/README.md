@@ -1,7 +1,7 @@
 
-# AlmaLinux Development Common (almalinux-dev-base)
+# AlmaLinux Rust Axum Full Stack Template (rust-full-stack)
 
-A base distro that doesn't have need to install anything extra to get started with development
+A dev environment for programming an Axum backend with sqlx and frontend tooling (nvm, node LTS, bun)
 
 ## Options
 
@@ -13,4 +13,4 @@ A base distro that doesn't have need to install anything extra to get started wi
 
 ---
 
-_Note: This file was auto-generated from the [devcontainer-template.json](https://github.com/elibroftw/devcontainer-templates/blob/main/src/almalinux-dev-base/devcontainer-template.json).  Add additional notes to a `NOTES.md`._
+_Note: This file was auto-generated from the [devcontainer-template.json](https://github.com/elibroftw/devcontainers/blob/main/src/templates/rust-full-stack/devcontainer-template.json).  Add additional notes to a `NOTES.md`._
