@@ -6,6 +6,7 @@
 	"features": {
 		"ghcr.io/elibroftw/devcontainers/features/rust": {},
 		"ghcr.io/elibroftw/devcontainers/features/sqlx": {},
+		"ghcr.io/elibroftw/devcontainers/features/postgresql": {},
 		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
 	},
 
