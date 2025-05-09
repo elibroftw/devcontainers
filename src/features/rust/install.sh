@@ -6,3 +6,19 @@ curl https://sh.rustup.rs -sSf | sh -s -- -y
 rustup component add rustfmt
 # https://dystroy.org/bacon/
 cargo install --locked bacon --features "clipboard sound"
+
+
+# nvm
+echo "installing nvm" > "$HOME/frontend.log"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
+. "$HOME/.bashrc"
+nvm install --lts
+nvm use --lts
+corepack enable
+echo "installing bun" > "$HOME/frontend.log"
+# bun
+curl -fsSL https://bun.sh/install | bash
+echo "installing ts" > "$HOME/frontend.log"
+# typescript
+npm install -g typescript
+npm install -g ts-node
