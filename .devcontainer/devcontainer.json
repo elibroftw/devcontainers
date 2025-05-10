@@ -3,7 +3,7 @@
 	"features": {
 		"ghcr.io/elibroftw/devcontainers/features/rust:latest": {},
 		"ghcr.io/elibroftw/devcontainers/features/sqlx:latest": {},
-		"ghcr.io/elibroftw/devcontainers/features/postgresql:latest": {},
+		"ghcr.io/elibroftw/devcontainers/features/postgresql-client:latest": {},
 		"ghcr.io/elibroftw/devcontainers/features/frontend:latest": {}
 	}
 }

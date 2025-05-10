@@ -6,9 +6,11 @@ Example Usage (`.devcontainer\devcontainer.json`)
 
 ```json
 {
-  "image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux"
+  "image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux",
 }
 ```
+
+It's recommended you add `"postStartCommand"` to auto-install dependencies [on container start](https://code.visualstudio.com/remote/advancedcontainers/start-processes).
 
 AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base-almalinux`
 
@@ -29,12 +31,9 @@ AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base
 Features & Templates to Research & create
 
 - `/templates/rust-full-stack-almalinux`
-  - TODO: [Install deps on start](https://code.visualstudio.com/remote/advancedcontainers/start-processes)
-  - TODO: [targeted named volume](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-targeted-named-volume)
-  - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, bun
-  - can be used for backend-only and frontend-only projects
-  - It's advised to run `PostgreSQL` in another docker container. [READ](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
-
+  - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, bun, psql
+  - Also useful for backend-only or frontend-only projects
+  - It's advised to run `PostgreSQL` in another docker container. [Tutorial](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
 - `/templates/csharp-full-stack-almalinux`
   - dotnet, nvm, typescript, ts-node, pnpm, bun
   - can be used for backend-only and frontend-only projects
@@ -74,6 +73,7 @@ If you want to replace the base image with something else, I recommend the follo
 - https://github.com/home-assistant/devcontainer/blob/c1479dcf6b8b55e2cdfaba53515fe547d5acd08a/.github/workflows/builder.yaml#L50
 - https://docs.docker.com/reference/cli/docker/manifest/#inspect-an-images-manifest-object
 - https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/rust/tags
+- [targeted named volume](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-targeted-named-volume)
 
 ## Rationale
 

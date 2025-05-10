@@ -18,5 +18,5 @@
         }
     },
     // use .nvmrc specified version if the file exists otherwise default to lts
-    "postAttachCommand": "(nvm use 2&>/dev/null || nvm use --lts) && corepack enable"
+    "postAttachCommand": "bash -l -c \"(nvm use 2&>/dev/null || nvm use --lts) && corepack enable\""
 }
