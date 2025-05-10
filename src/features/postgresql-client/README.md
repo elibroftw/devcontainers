@@ -1,13 +1,13 @@
 
-# PostgreSQL (postgresql)
+# PostgreSQL Client (postgresql-client)
 
-Installs PostgreSQL using dnf
+Installs PostgreSQL client using dnf
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/elibroftw/devcontainers/features/postgresql:0": {}
+    "ghcr.io/elibroftw/devcontainers/features/postgresql-client:0": {}
 }
 ```
 
@@ -27,4 +27,4 @@ Installs PostgreSQL using dnf
 
 ---
 
-_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/elibroftw/devcontainers/blob/main/src/features/postgresql/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/elibroftw/devcontainers/blob/main/src/features/postgresql-client/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
