@@ -10,8 +10,11 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     dnf install -y --allowerasing \
     # buildpack-deps equivalent
     ca-certificates curl gnupg2 wget tzdata \
+    unzip \
     # remoteUser support
     shadow sudo \
+    alsa-lib-devel \
+    openssl-devel \
     python3 \
     python3-pip \
     procps \
@@ -20,6 +23,8 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     infisical \
     ansible \
     ripgrep
+
+RUN dnf group install -y "Development Tools"
 
 # Set ripgrep config location
 COPY ./rg.conf /etc/rg.conf
