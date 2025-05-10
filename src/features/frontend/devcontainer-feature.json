@@ -18,5 +18,5 @@
         }
     },
     // use .nvmrc specified version if the file exists otherwise default to lts
-    "postStartCommand": "nvm --help || (. \"~/.bashrc\" && (nvm use 2&>/dev/null && corepack enable) && echo done)"
+    "postAttachCommand": ". \"$HOME/.bashrc\" && (nvm use 2&>/dev/null && corepack enable)"
 }

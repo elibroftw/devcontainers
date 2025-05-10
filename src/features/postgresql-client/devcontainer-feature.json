@@ -1,7 +1,7 @@
 {
     "name": "PostgreSQL Client",
     "id": "postgresql-client",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Installs PostgreSQL client using dnf",
     "options": {},
     "customizations": {
@@ -11,5 +11,5 @@
             ]
         }
     },
-    "postAttachCommand": "psql -h localhost --username=pgadmin --list"
+    "postAttachCommand": "psql -h localhost --username=pgadmin --list || true"
 }
