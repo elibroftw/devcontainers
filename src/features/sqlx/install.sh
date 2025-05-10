@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 set -e
-cargo install sqlx-cli
+
+su - "$_REMOTE_USER" -c '
+    cargo install sqlx-cli
+'
