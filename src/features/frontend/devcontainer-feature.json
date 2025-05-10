@@ -1,7 +1,7 @@
 {
     "name": "Frontend",
     "id": "frontend",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "Install packages needed for frontend development",
     "options": {},
     "customizations": {
@@ -18,5 +18,5 @@
         }
     },
     // use .nvmrc specified version if the file exists otherwise default to lts
-    "postAttachCommand": "bash -l -c \"(nvm use 2&>/dev/null || nvm use --lts) && corepack enable\""
+    "postAttachCommand": ". ~/.bashrc && (nvm use 2&>/dev/null || nvm use --lts) && corepack enable\""
 }
