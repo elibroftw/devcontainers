@@ -29,6 +29,13 @@ Install packages needed for frontend development
 - `svelte.svelte-vscode`
 - `jasonnutter.search-node-modules`
 
+This feature installs the following
+
+- nvm
+- nodejs LTS
+- bun
+- ts-node (globally)
+- typescript (globally)
 
 
 ---
