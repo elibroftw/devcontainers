@@ -11,5 +11,5 @@
             ]
         }
     },
-    "postAttachCommand": "psql -h localhost --username=pgadmin --list || true"
+    "postAttachCommand": "psql -h localhost --username=pgadmin --list 2&>/dev/null || true"
 }
