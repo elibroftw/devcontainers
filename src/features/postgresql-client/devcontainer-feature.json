@@ -1,0 +1,15 @@
+{
+    "name": "PostgreSQL Client",
+    "id": "postgresql-client",
+    "version": "0.0.3",
+    "description": "Installs PostgreSQL client using dnf",
+    "options": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ckolkman.vscode-postgres"
+            ]
+        }
+    },
+    "postAttachCommand": "psql -h localhost --username=pgadmin --list 2&>/dev/null || true"
+}
