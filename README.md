@@ -10,6 +10,8 @@ Example Usage (`.devcontainer\devcontainer.json`)
 }
 ```
 
+It's recommended you auto-install dependencies [on container start](https://code.visualstudio.com/remote/advancedcontainers/start-processes) by using the `"postAttachCommand"` field.
+
 AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base-almalinux`
 
 - AlmaLinux base (RHEL API guarantee, Fedora is the upstream)
@@ -29,12 +31,9 @@ AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base
 Features & Templates to Research & create
 
 - `/templates/rust-full-stack-almalinux`
-  - TODO: [Install deps on start](https://code.visualstudio.com/remote/advancedcontainers/start-processes)
-  - TODO: [targeted named volume](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-targeted-named-volume)
-  - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, bun
-  - can be used for backend-only and frontend-only projects
-  - It's advised to run `PostgreSQL` in another docker container. [READ](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
-
+  - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, bun, psql
+  - Also useful for backend-only or frontend-only projects
+  - It's advised to run `PostgreSQL` in another docker container. [Tutorial](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
 - `/templates/csharp-full-stack-almalinux`
   - dotnet, nvm, typescript, ts-node, pnpm, bun
   - can be used for backend-only and frontend-only projects
@@ -74,6 +73,7 @@ If you want to replace the base image with something else, I recommend the follo
 - https://github.com/home-assistant/devcontainer/blob/c1479dcf6b8b55e2cdfaba53515fe547d5acd08a/.github/workflows/builder.yaml#L50
 - https://docs.docker.com/reference/cli/docker/manifest/#inspect-an-images-manifest-object
 - https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/rust/tags
+- [targeted named volume](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-targeted-named-volume)
 
 ## Rationale
 
@@ -89,7 +89,7 @@ If you follow Microsoft's own tutorials, it will lead you to improperly create a
 2. They don't teach you how to properly build your Dockerfile so that it works on ARM (aarch64).
 3. They don't teach you how to use non-Microsoft hosted distros (i.e. non-debian, non-ubuntu, non-alpine) like I have done. They actually try to [dissuade you](https://github.com/devcontainers/images/tree/main/build#the-build-namespace) from using anything other than debian and ubuntu images.
 
-### why not AlPiNe
+### Why not AlPiNe
 
 Similar logic to Debian, if I'm not daily driving it, I'm not going to use it for a dev environment nor for deployment.
 
