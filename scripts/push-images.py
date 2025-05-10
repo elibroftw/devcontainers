@@ -15,7 +15,7 @@ parser.add_argument(
     "--namespace",
     required=True,
     action="store",
-    help="e.g. `elibroftw/devcontainer-templates`. In GH actions: ${{ github.repository }}",
+    help="e.g. `elibroftw/devcontainers`. In GH actions: ${{ github.repository }}",
 )
 parser.add_argument(
     "--registry",
