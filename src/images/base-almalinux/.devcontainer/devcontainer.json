@@ -3,21 +3,16 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-
-	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {},
 	// Enables you to SSH into servers (useful for Ansible)
 	"mounts": [
 		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly",
 		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/Downloads,target=/home/vscode/Downloads"
 	],
-	// common ports that need to be accessed locally (e.g. Axum, actix-web / xitca-web, flask / ASP.NET, blog post, postgresql, mongodb)
+	// Common ports that need to be accessed locally (e.g. Axum, actix-web / xitca-web, flask / ASP.NET, astro, blog post, postgresql, mongod)
 	// NOTE: 5284 is uncommon and will be removed once I migrate to using port 5000 for my ASP.NET project.
 	// 	Use ports 500X instead for microservices in your mono-repo
-	"forwardPorts": [3000, 8000, 8080, 5000, 5001, 5002, 5432, 27017, 5284],
-	// 👇 Use 'postCreateCommand' to run commands after the container is created.
-
-	// 👇 Configure tool-specific properties.
+	"forwardPorts": [3000, 8000, 8080, 5000, 5001, 5002, 4321, 5432, 27017, 5284],
 	"customizations": {
 		"vscode": {
 			"extensions": [
