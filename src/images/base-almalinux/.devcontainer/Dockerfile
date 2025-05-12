@@ -17,6 +17,7 @@ RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infi
     openssl-devel \
     python3 \
     python3-pip \
+    caddy \
     procps \
     dnf-plugins-core \
     git \
