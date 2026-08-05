@@ -4,7 +4,6 @@ FROM almalinux:${VARIANT}
 # Add Infisical repository
 RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://artifacts-cli.infisical.com/setup.rpm.sh' | sh
 RUN dnf install -y epel-release && \
-    dnf install -y elrepo-release && \
     # Install useful packages
     dnf update -y && \
     dnf install -y --allowerasing \
@@ -29,7 +28,7 @@ RUN dnf group install -y "Development Tools"
 
 # Set ripgrep config location
 COPY ./rg.conf /etc/rg.conf
-ENV RIPGREP_CONFIG_PATH /etc/rg.conf
+ENV RIPGREP_CONFIG_PATH=/etc/rg.conf
 
 # https://docs.fedoraproject.org/en-US/epel/getting-started/
 RUN dnf config-manager --set-enabled crb

@@ -26,7 +26,7 @@ jobs:
         run: npm install -g @devcontainers/cli
 
       - name: Docker login
-        uses: docker/login-action@v2
+        uses: docker/login-action@master
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
