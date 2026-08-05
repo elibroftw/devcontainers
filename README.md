@@ -136,3 +136,10 @@ for CURRENT_USER in "${POSSIBLE_USERS[@]}"; do
     fi
 done
 ```
+
+## Notes
+
+I was wondering why I wrote `curl` starting with `curl --proto '=https' --tlsv1.2`.
+
+- Specifying the protocol protects against protocol downgrade attacks via redirect
+- Specifying the minimum TLS version protects against vulnerable encryption protocols

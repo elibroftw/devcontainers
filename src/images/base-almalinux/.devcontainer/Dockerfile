@@ -1,9 +1,9 @@
 ARG VARIANT="latest"
 FROM almalinux:${VARIANT}
 
-    # Add Infisical repository
-RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.rpm.sh' | sh && \
-    dnf install -y epel-release && \
+# Add Infisical repository
+RUN curl --proto '=https' --tlsv1.2 -1sSLf 'https://artifacts-cli.infisical.com/setup.rpm.sh' | sh
+RUN dnf install -y epel-release && \
     dnf install -y elrepo-release && \
     # Install useful packages
     dnf update -y && \
