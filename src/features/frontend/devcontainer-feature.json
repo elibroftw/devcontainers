@@ -1,7 +1,7 @@
 {
     "name": "Frontend",
     "id": "frontend",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "description": "Install packages needed for frontend development",
     "options": {},
     "customizations": {
@@ -10,7 +10,6 @@
                 "astro-build.astro-vscode",
                 "NuclleaR.vscode-extension-auto-import",
                 "aeschli.vscode-css-formatter",
-                "oven.bun-vscode",
                 "dbaeumer.vscode-eslint",
                 "svelte.svelte-vscode",
                 "jasonnutter.search-node-modules"

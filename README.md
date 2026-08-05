@@ -28,15 +28,36 @@ AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base
 - ripgrep (grep successor)
 - infisical (secret management)
 
-Features & Templates to Research & create
+## Features
 
-- `/templates/rust-full-stack-almalinux`
-  - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, bun, psql
+Add these to the `"features"` field of your `devcontainer.json`, namespaced under `ghcr.io/elibroftw/devcontainers/features/`.
+
+| Feature | Installs |
+| --- | --- |
+| `claude-code` | The Claude Code CLI and its VS Code extension |
+| `csharp` | .NET SDK (channel configurable, defaults to LTS) and the C# Dev Kit extension |
+| `ffmpeg` | FFmpeg from RPM Fusion, rather than EPEL's codec-stripped `ffmpeg-free` |
+| `frontend` | nvm, node LTS, corepack (yarn, pnpm), typescript, ts-node |
+| `github-cli` | `gh` |
+| `postgresql-client` | `psql` |
+| `python` | `uv`, and optionally a Python version for it to manage |
+| `rust` | rustup, cargo, rustfmt, [bacon](https://dystroy.org/bacon/) |
+| `sqlx` | `sqlx-cli` (installs after `rust`) |
+
+## Templates
+
+- `/templates/rust-full-stack`
+  - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, psql
   - Also useful for backend-only or frontend-only projects
-  - It's advised to run `PostgreSQL` in another docker container. [Tutorial](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
-- `/templates/csharp-full-stack-almalinux`
-  - dotnet, nvm, typescript, ts-node, pnpm, bun
+- `/templates/aspnet-full-stack`
+  - dotnet, nvm, typescript, ts-node, pnpm, psql
   - can be used for backend-only and frontend-only projects
+- `/templates/ai-agent`
+  - Claude Code, gh, uv, nvm, plus the base image's git, ripgrep, yq, and just
+  - A sandbox for letting a coding agent run against a repo. Deliberately has no
+    docker socket mount — that would hand the agent root on the host.
+
+Both templates expect `PostgreSQL` itself to run in another docker container. [Tutorial](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
 
 Linux _could_ be the future of desktop operating systems, however it doesn't help when influencers and the community do everything they can do hamstring its adoption by promoting distros like Ubuntu, Linux Mint, Arch and desktop-environments like GNOME to people coming from stable operating systems like Windows and macOS with a non-trivial setup (e.g. 1440p displays). If you want to know why I'm like this, feel free to read [Linux Desktop Sucks!](https://blog.elijahlopez.ca/posts/linux-desktop-sucks/).
 

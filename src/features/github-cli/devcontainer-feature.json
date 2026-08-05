@@ -1,0 +1,7 @@
+{
+    "name": "GitHub CLI",
+    "id": "github-cli",
+    "version": "0.0.1",
+    "description": "Installs the GitHub CLI (gh) from GitHub's own RPM repository",
+    "options": {}
+}

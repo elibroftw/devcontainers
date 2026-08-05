@@ -24,7 +24,6 @@ Install packages needed for frontend development
 - `astro-build.astro-vscode`
 - `NuclleaR.vscode-extension-auto-import`
 - `aeschli.vscode-css-formatter`
-- `oven.bun-vscode`
 - `dbaeumer.vscode-eslint`
 - `svelte.svelte-vscode`
 - `jasonnutter.search-node-modules`
@@ -33,7 +32,6 @@ This feature installs the following
 
 - nvm
 - nodejs LTS
-- bun
 - ts-node (globally)
 - typescript (globally)
 

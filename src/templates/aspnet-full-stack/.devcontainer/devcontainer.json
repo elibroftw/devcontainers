@@ -1,0 +1,27 @@
+{
+	"name": "AlmaLinux ASP.NET Full Stack (ASP.NET, PostgreSQL, JavaScript runtime)",
+	"image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux",
+
+	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+	"features": {
+		"ghcr.io/elibroftw/devcontainers/features/csharp": {},
+		"ghcr.io/elibroftw/devcontainers/features/postgresql-client": {},
+		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
+	},
+
+	// common ports that need to be accessed locally (e.g. ASP.NET http/https, astro, blog post, postgresql, mongodb)
+	// NOTE: 5284 is uncommon and will be removed once I migrate to using port 5000 for my ASP.NET project.
+	// 	Use ports 500X instead for microservices in your mono-repo
+	"forwardPorts": [3000, 4321, 8000, 8080, 5000, 5001, 5002, 5432, 27017, 5284],
+	// 👇 Use 'postCreateCommand' to run commands after the container is created.
+
+	// 👇 Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+			]
+		}
+	}
+	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

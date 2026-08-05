@@ -1,8 +1,8 @@
 {
     "id": "rust-full-stack",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "name": "AlmaLinux Rust Axum Full Stack Template",
-    "description": "A dev environment for programming an Axum backend with sqlx and frontend tooling (nvm, node LTS, bun)",
+    "description": "A dev environment for programming an Axum backend with sqlx and frontend tooling (nvm, node LTS)",
     "documentationURL": "https://github.com/elibroftw/devcontainers#readme",
     "licenseURL": "https://github.com/elibroftw/devcontainers/blob/master/LICENSE",
     "options": {},

@@ -1,0 +1,31 @@
+{
+    "name": "C#",
+    "id": "csharp",
+    "version": "0.0.1",
+    "description": "Installs the .NET SDK system-wide using dotnet-install.sh",
+    "options": {
+        "channel": {
+            "type": "string",
+            "proposals": [
+                "LTS",
+                "STS",
+                "10.0",
+                "9.0",
+                "8.0"
+            ],
+            "default": "LTS",
+            "description": "Channel passed to `dotnet-install.sh --channel`, e.g. LTS, STS, or a specific band like 10.0"
+        }
+    },
+    "containerEnv": {
+        "DOTNET_ROOT": "/usr/local/share/dotnet",
+        "DOTNET_NOLOGO": "1"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csdevkit"
+            ]
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "FFmpeg",
+    "id": "ffmpeg",
+    "version": "0.0.1",
+    "description": "Installs FFmpeg from RPM Fusion using dnf",
+    "options": {}
+}

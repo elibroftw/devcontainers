@@ -1,7 +1,7 @@
 
 # AlmaLinux Rust Axum Full Stack Template (rust-full-stack)
 
-A dev environment for programming an Axum backend with sqlx and frontend tooling (nvm, node LTS, bun)
+A dev environment for programming an Axum backend with sqlx and frontend tooling (nvm, node LTS)
 
 ## Options
 

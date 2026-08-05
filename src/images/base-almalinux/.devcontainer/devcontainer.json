@@ -25,8 +25,7 @@
 				"EditorConfig.EditorConfig",
 				"charliermarsh.ruff",
 				"ms-python.python",
-				"ms-python.debugpy",
-				"RooVeterinaryInc.roo-cline"
+				"ms-python.debugpy"
 			]
 		}
 	},

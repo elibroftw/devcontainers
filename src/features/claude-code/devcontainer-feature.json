@@ -1,0 +1,14 @@
+{
+    "name": "Claude Code",
+    "id": "claude-code",
+    "version": "0.0.1",
+    "description": "Installs the Claude Code CLI using Anthropic's native installer",
+    "options": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "anthropic.claude-code"
+            ]
+        }
+    }
+}

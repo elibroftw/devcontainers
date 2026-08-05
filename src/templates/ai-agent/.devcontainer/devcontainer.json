@@ -1,0 +1,41 @@
+{
+	"name": "AlmaLinux AI Agent Sandbox",
+	"image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux",
+
+	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+	"features": {
+		"ghcr.io/elibroftw/devcontainers/features/claude-code": {},
+		"ghcr.io/elibroftw/devcontainers/features/github-cli": {},
+		"ghcr.io/elibroftw/devcontainers/features/python": {},
+		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
+	},
+
+	// 👇 The container is the sandbox. An agent runs as vscode, not root, and can only
+	// 	reach what is mounted here. Note there is deliberately no docker socket mount:
+	// 	that would hand the agent root on the host and defeat the isolation.
+	"mounts": [
+		// agent config, credentials, and session history survive a rebuild
+		"source=ai-agent-claude,target=/home/vscode/.claude,type=volume"
+	],
+	// 👇 Named volumes are created root-owned, so hand it to the remote user
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude",
+
+	// 👇 Pass your key through from the host instead of baking it into the image.
+	// 	The base image also ships infisical if you'd rather pull secrets at runtime.
+	"remoteEnv": {
+		"ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
+	},
+
+	// common ports for whatever the agent is building (e.g. astro, flask / ASP.NET, blog post)
+	"forwardPorts": [3000, 4321, 8000, 8080, 5000, 5001, 5002],
+
+	// 👇 Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+			]
+		}
+	}
+	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
