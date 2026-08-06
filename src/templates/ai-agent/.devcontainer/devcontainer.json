@@ -7,6 +7,7 @@
 		"ghcr.io/elibroftw/devcontainers/features/claude-code": {},
 		"ghcr.io/elibroftw/devcontainers/features/github-cli": {},
 		"ghcr.io/elibroftw/devcontainers/features/python": {},
+		"ghcr.io/elibroftw/devcontainers/features/ai-agent-tools": {},
 		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
 	},
 
@@ -20,14 +21,30 @@
 	// 👇 Named volumes are created root-owned, so hand it to the remote user
 	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude",
 
+	// 👇 Gives the container a name that resolves to the host, so it can call
+	// 	services you are running out there (chandra, surya, ollama, a local API).
+	// 	Docker Desktop defines this for you; on Linux you have to ask for it.
+	// 	Podman already provides host.containers.internal and ignores this.
+	"runArgs": ["--add-host=host.docker.internal:host-gateway"],
+
 	// 👇 Pass your key through from the host instead of baking it into the image.
 	// 	The base image also ships infisical if you'd rather pull secrets at runtime.
 	"remoteEnv": {
-		"ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
+		"ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+
+		// 👇 chandra and surya are installed as clients only. Point them at the vLLM
+		// 	server on the host, where the GPU and the weights are. See NOTES.md.
+		// 	One vLLM process serves one model, so they get separate ports.
+		"VLLM_API_BASE": "http://host.docker.internal:8000/v1",
+		"VLLM_MODEL_NAME": "chandra",
+		"SURYA_INFERENCE_BACKEND": "vllm",
+		"SURYA_INFERENCE_URL": "http://host.docker.internal:8001/v1"
 	},
 
 	// common ports for whatever the agent is building (e.g. astro, flask / ASP.NET, blog post)
-	"forwardPorts": [3000, 4321, 8000, 8080, 5000, 5001, 5002],
+	// NOTE: 8000 and 8001 are left out on purpose. Forwarding a port the host is already
+	// 	serving on is the fastest way to confuse yourself about which end answered.
+	"forwardPorts": [3000, 4321, 8080, 5000, 5001, 5002],
 
 	// 👇 Configure tool-specific properties.
 	"customizations": {

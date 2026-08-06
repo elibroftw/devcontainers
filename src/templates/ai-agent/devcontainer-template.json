@@ -2,7 +2,7 @@
     "id": "ai-agent",
     "version": "0.0.1",
     "name": "AlmaLinux AI Agent Sandbox",
-    "description": "A sandbox for running coding agents, with the tools an agent calls (git, gh, rg, yq, just) and the runtimes it writes against (uv, node)",
+    "description": "A sandbox for running coding agents, with the tools an agent calls (git, gh, rg, yq, just, OCR and PDF extraction) and the runtimes it writes against (uv, node)",
     "documentationURL": "https://github.com/elibroftw/devcontainers#readme",
     "licenseURL": "https://github.com/elibroftw/devcontainers/blob/master/LICENSE",
     "options": {},

@@ -1,14 +1,3 @@
-
-# AlmaLinux AI Agent Sandbox (ai-agent)
-
-A sandbox for running coding agents, with the tools an agent calls (git, gh, rg, yq, just, OCR and PDF extraction) and the runtimes it writes against (uv, node)
-
-## Options
-
-| Options Id | Description | Type | Default Value |
-|-----|-----|-----|-----|
-
-
 ## Calling APIs on the host from inside the container
 
 [chandra](https://github.com/datalab-to/chandra) and
@@ -108,8 +97,3 @@ and it hands whatever is inside root on the host — the agent could start a pri
 container mounting `/`. That defeats the point of running the agent in a sandbox at
 all. If an agent genuinely needs to build images, give it a rootless Podman socket or
 a throwaway VM instead.
-
-
----
-
-_Note: This file was auto-generated from the [devcontainer-template.json](https://github.com/elibroftw/devcontainers/blob/main/src/templates/ai-agent/devcontainer-template.json).  Add additional notes to a `NOTES.md`._

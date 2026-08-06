@@ -21,10 +21,11 @@ RUN dnf install -y epel-release && \
     dnf-plugins-core \
     git \
     infisical \
-    ansible \
     ripgrep
 
 RUN dnf group install -y "Development Tools"
+
+RUN pip install ansible
 
 # Set ripgrep config location
 COPY ./rg.conf /etc/rg.conf

@@ -1,0 +1,21 @@
+{
+    "name": "AI Agent Tools",
+    "id": "ai-agent-tools",
+    "version": "0.0.1",
+    "description": "Document extraction and OCR tooling for coding agents: poppler-utils, tesseract, ImageMagick, unpaper, zbar, ocrmypdf, docling, and chandra and surya as clients for a host served vLLM",
+    "options": {
+        "languages": {
+            "type": "string",
+            "proposals": [
+                "eng",
+                "eng fra deu spa",
+                "eng chi_sim jpn"
+            ],
+            "default": "eng",
+            "description": "Space separated tesseract language packs. The nixpkgs default is every language, which is gigabytes of traineddata, so this is narrowed to English unless you widen it."
+        }
+    },
+    "installsAfter": [
+        "python"
+    ]
+}

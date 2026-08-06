@@ -2,11 +2,21 @@
 
 Contains an AlamLinux base image, frontend features, and templates. [Rationale](#rationale)
 
-Example Usage (`.devcontainer\devcontainer.json`)
+Example uses (`.devcontainer\devcontainer.json`)
 
 ```json
 {
-  "image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux"
+  "image": "ghcr.io/elibroftw/devcontainers/templates/aspnet-full-stack"
+}
+```
+
+```json
+{
+  "name": "Python Malware Analysis Container",
+  "image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux",
+  "features": {
+    "ghcr.io/elibroftw/devcontainers/features/python": { "version": "3.11" },
+  },
 }
 ```
 
@@ -34,6 +44,7 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
 
 | Feature | Installs |
 | --- | --- |
+| `ai-agent-tools` | Document extraction and OCR: poppler-utils, tesseract, ImageMagick, unpaper, zbar, ocrmypdf, docling |
 | `claude-code` | The Claude Code CLI and its VS Code extension |
 | `csharp` | .NET SDK (channel configurable, defaults to LTS) and the C# Dev Kit extension |
 | `ffmpeg` | FFmpeg from RPM Fusion, rather than EPEL's codec-stripped `ffmpeg-free` |
@@ -46,6 +57,8 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
 
 ## Templates
 
+`ghcr.io/elibroftw/devcontainers/<template>`
+
 - `/templates/rust-full-stack`
   - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, psql
   - Also useful for backend-only or frontend-only projects
@@ -53,7 +66,7 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
   - dotnet, nvm, typescript, ts-node, pnpm, psql
   - can be used for backend-only and frontend-only projects
 - `/templates/ai-agent`
-  - Claude Code, gh, uv, nvm, plus the base image's git, ripgrep, yq, and just
+  - Claude Code, gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
   - A sandbox for letting a coding agent run against a repo. Deliberately has no
     docker socket mount — that would hand the agent root on the host.
 

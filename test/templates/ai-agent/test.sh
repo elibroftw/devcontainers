@@ -11,3 +11,9 @@ assert_successful_code rg --version
 assert_successful_code gh --version
 assert_successful_code uv --version
 assert_successful_code claude --version
+assert_successful_code pdftotext -v
+assert_successful_code tesseract --version
+assert_successful_code zbarimg --version
+assert_successful_code ocrmypdf --version
+assert_successful_code chandra --help
+assert_successful_code surya_ocr --help
