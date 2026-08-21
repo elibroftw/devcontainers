@@ -6,7 +6,14 @@
 	"features": {
 		"ghcr.io/elibroftw/devcontainers/features/csharp": {},
 		"ghcr.io/elibroftw/devcontainers/features/postgresql-client": {},
-		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
+		"ghcr.io/elibroftw/devcontainers/features/frontend": {},
+		"ghcr.io/elibroftw/devcontainers/features/pi-coding-agent": {},
+		// 👇 pi reads provider keys (ANTHROPIC_API_KEY, OPENAI_API_KEY, ...) from
+		// 	the environment, so nothing else needs configuring to use it.
+		// 	find-skills lets pi discover more skills from https://skills.sh.
+		"ghcr.io/elibroftw/devcontainers/features/skills": {
+			"skills": "vercel-labs/skills@find-skills github/awesome-copilot@dotnet-best-practices jeffallan/claude-skills@csharp-developer"
+		}
 	},
 
 	// common ports that need to be accessed locally (e.g. ASP.NET http/https, astro, blog post, postgresql, mongodb)

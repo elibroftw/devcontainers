@@ -25,6 +25,7 @@ This one rule saves more time and tokens than any accuracy tuning.
 | `zbarimg` | dnf | Barcodes and QR codes |
 | `ocrmypdf` | uv | Add a text layer to a scanned PDF in place, idempotently |
 | `docling` | uv | PDF to markdown with tables and reading order |
+| `runpodctl` | runpod installer | Manage RunPod GPU pods and serverless endpoints; auth via `RUNPOD_API_KEY` |
 
 `tesseract` comes from nix because neither it nor `leptonica` is packaged in EPEL 9 or
 EPEL 10. The nixpkgs default builds every language pack, which is gigabytes, so the

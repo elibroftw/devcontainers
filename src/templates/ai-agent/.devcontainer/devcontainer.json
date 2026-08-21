@@ -5,10 +5,16 @@
 	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {
 		"ghcr.io/elibroftw/devcontainers/features/claude-code": {},
+		"ghcr.io/elibroftw/devcontainers/features/pi-coding-agent": {},
 		"ghcr.io/elibroftw/devcontainers/features/github-cli": {},
 		"ghcr.io/elibroftw/devcontainers/features/python": {},
 		"ghcr.io/elibroftw/devcontainers/features/ai-agent-tools": {},
-		"ghcr.io/elibroftw/devcontainers/features/frontend": {}
+		"ghcr.io/elibroftw/devcontainers/features/frontend": {},
+		// find-skills is the default skill; it teaches the agent to discover and
+		// install the rest from https://skills.sh itself.
+		"ghcr.io/elibroftw/devcontainers/features/skills": {
+			"agents": "pi claude-code"
+		}
 	},
 
 	// 👇 The container is the sandbox. An agent runs as vscode, not root, and can only
@@ -16,10 +22,11 @@
 	// 	that would hand the agent root on the host and defeat the isolation.
 	"mounts": [
 		// agent config, credentials, and session history survive a rebuild
-		"source=ai-agent-claude,target=/home/vscode/.claude,type=volume"
+		"source=ai-agent-claude,target=/home/vscode/.claude,type=volume",
+		"source=ai-agent-pi,target=/home/vscode/.pi,type=volume"
 	],
 	// 👇 Named volumes are created root-owned, so hand it to the remote user
-	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude",
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.pi",
 
 	// 👇 Gives the container a name that resolves to the host, so it can call
 	// 	services you are running out there (chandra, surya, ollama, a local API).
@@ -27,10 +34,21 @@
 	// 	Podman already provides host.containers.internal and ignores this.
 	"runArgs": ["--add-host=host.docker.internal:host-gateway"],
 
-	// 👇 Pass your key through from the host instead of baking it into the image.
-	// 	The base image also ships infisical if you'd rather pull secrets at runtime.
+	// 👇 Pass your keys through from the host instead of baking them into the image.
+	// 	pi and claude read provider keys straight from the environment, so a key
+	// 	you export on the host is all the setup an agent needs. The base image also
+	// 	ships infisical if you'd rather pull secrets at runtime.
 	"remoteEnv": {
+		"OPENROUTER_API_KEY": "${localEnv:OPENROUTER_API_KEY}",
+		"ZAI_API_KEY": "${localEnv:ZAI_API_KEY}",
 		"ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+		"OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}",
+		"GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
+		"DEEPSEEK_API_KEY": "${localEnv:DEEPSEEK_API_KEY}",
+		"XAI_API_KEY": "${localEnv:XAI_API_KEY}",
+		"GROQ_API_KEY": "${localEnv:GROQ_API_KEY}",
+		"MISTRAL_API_KEY": "${localEnv:MISTRAL_API_KEY}",
+		"RUNPOD_API_KEY": "${localEnv:RUNPOD_API_KEY}",
 
 		// 👇 chandra and surya are installed as clients only. Point them at the vLLM
 		// 	server on the host, where the GPU and the weights are. See NOTES.md.

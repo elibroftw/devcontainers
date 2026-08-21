@@ -44,15 +44,17 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
 
 | Feature | Installs |
 | --- | --- |
-| `ai-agent-tools` | Document extraction and OCR: poppler-utils, tesseract, ImageMagick, unpaper, zbar, ocrmypdf, docling |
+| `ai-agent-tools` | Document extraction and OCR: poppler-utils, tesseract, ImageMagick, unpaper, zbar, ocrmypdf, docling; plus runpodctl for RunPod GPU pods |
 | `claude-code` | The Claude Code CLI and its VS Code extension |
 | `csharp` | .NET SDK (channel configurable, defaults to LTS) and the C# Dev Kit extension |
 | `ffmpeg` | FFmpeg from RPM Fusion, rather than EPEL's codec-stripped `ffmpeg-free` |
 | `frontend` | nvm, node LTS, corepack (yarn, pnpm), typescript, ts-node |
 | `github-cli` | `gh` |
+| `pi-coding-agent` | The pi coding agent CLI from npm (needs the `frontend` feature's node) |
 | `postgresql-client` | `psql` |
 | `python` | `uv`, and optionally a Python version for it to manage |
 | `rust` | rustup, cargo, rustfmt, [bacon](https://dystroy.org/bacon/) |
+| `skills` | Agent skills from [skills.sh](https://skills.sh) via `npx skills add`, find-skills by default (needs the `frontend` feature's node) |
 | `sqlx` | `sqlx-cli` (installs after `rust`) |
 
 ## Templates
@@ -63,12 +65,28 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
   - Rust, Axum, sqlx, nvm, typescript, ts-node, yarn, pnpm, psql
   - Also useful for backend-only or frontend-only projects
 - `/templates/aspnet-full-stack`
-  - dotnet, nvm, typescript, ts-node, pnpm, psql
+  - dotnet, nvm, typescript, ts-node, pnpm, psql, pi, and the C# skills find-skills, dotnet-best-practices, csharp-developer
   - can be used for backend-only and frontend-only projects
 - `/templates/ai-agent`
-  - Claude Code, gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
+  - Claude Code, pi, gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
   - A sandbox for letting a coding agent run against a repo. Deliberately has no
     docker socket mount — that would hand the agent root on the host.
+
+Preinstalling more skills on the ai-agent template is one feature option — here, RunPod's whole official set (GPU pod management, flash file transfer, usage, MCP) alongside the default find-skills:
+
+```json
+{
+    "image": "ghcr.io/elibroftw/devcontainers/templates/ai-agent",
+    "features": {
+        "ghcr.io/elibroftw/devcontainers/features/skills": {
+            "skills": "vercel-labs/skills@find-skills runpod/runpod-plugins-official",
+            "agents": "pi claude-code"
+        }
+    }
+}
+```
+
+Browse [skills.sh](https://skills.sh) for sources; `owner/repo` installs every skill in the repository, `owner/repo@skill` installs just that one.
 
 Both templates expect `PostgreSQL` itself to run in another docker container. [Tutorial](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#Using-Docker-Compose)
 

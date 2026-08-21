@@ -1,0 +1,10 @@
+{
+    "name": "Pi Coding Agent",
+    "id": "pi-coding-agent",
+    "version": "0.0.1",
+    "description": "Installs the pi coding agent CLI from npm; requires nodejs to be preinstalled (e.g. the frontend feature)",
+    "options": {},
+    "installsAfter": [
+        "frontend"
+    ]
+}

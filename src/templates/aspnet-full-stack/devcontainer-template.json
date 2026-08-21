@@ -1,8 +1,8 @@
 {
     "id": "aspnet-full-stack",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "name": "AlmaLinux ASP.NET Full Stack Template",
-    "description": "A dev environment for programming an ASP.NET backend with PostgreSQL and frontend tooling (nvm, node LTS)",
+    "description": "A dev environment for programming an ASP.NET backend with PostgreSQL and frontend tooling (nvm, node LTS), the pi coding agent, and C#/.NET agent skills",
     "documentationURL": "https://github.com/elibroftw/devcontainers#readme",
     "licenseURL": "https://github.com/elibroftw/devcontainers/blob/master/LICENSE",
     "options": {},

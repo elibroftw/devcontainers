@@ -12,7 +12,16 @@ TESSERACT_LANGUAGES="${LANGUAGES:-eng}"
 #   tesseract accuracy more than any config flag does.
 # zbar: zbarimg reads barcodes and QR codes, which models read badly and unreliably.
 # ghostscript: ocrmypdf shells out to it at runtime.
-dnf install -y poppler-utils ImageMagick unpaper zbar ghostscript
+# jq: runpodctl's installer and plenty of agent workflows want it; the base
+#   image only ships yq.
+dnf install -y poppler-utils ImageMagick unpaper zbar ghostscript jq
+
+# runpodctl: manage RunPod GPU pods and serverless endpoints, for agents that
+#   need GPU compute beyond the host. The installer requires root (feature
+#   scripts run as root), verifies a sha256 checksum, puts the binary in
+#   /usr/local/bin, and ships linux amd64 and arm64 like this image. Auth comes
+#   from the RUNPOD_API_KEY env var, so no secret is baked into the image.
+curl --proto '=https' --tlsv1.2 -fsSL https://cli.runpod.net | bash
 
 # tesseract is in neither EPEL 9 nor EPEL 10, and neither is its leptonica
 # dependency, so dnf is out. Nix is the escape hatch, the same route the base

@@ -1,0 +1,37 @@
+{
+    "name": "Skills",
+    "id": "skills",
+    "version": "0.0.1",
+    "description": "Installs agent skills from the open skills ecosystem (skills.sh) via `npx skills add`; ships find-skills by default so an agent can discover the rest. Requires nodejs to be preinstalled (e.g. the frontend feature)",
+    "options": {
+        "skills": {
+            "type": "string",
+            "proposals": [
+                "vercel-labs/skills@find-skills",
+                "vercel-labs/skills@find-skills runpod/runpod-plugins-official",
+                "vercel-labs/skills@find-skills github/awesome-copilot@dotnet-best-practices jeffallan/claude-skills@csharp-developer"
+            ],
+            "default": "vercel-labs/skills@find-skills",
+            "description": "Space separated skill sources. owner/repo installs every skill in the repository; owner/repo@skill installs just that one. Browse https://skills.sh"
+        },
+        "agents": {
+            "type": "string",
+            "proposals": [
+                "pi",
+                "pi claude-code"
+            ],
+            "default": "pi",
+            "description": "Space separated agent ids accepted by `npx skills add --agent`. pi lands in ~/.pi/agent/skills, claude-code in ~/.claude/skills"
+        }
+    },
+    "installsAfter": [
+        "frontend",
+        "pi-coding-agent",
+        "claude-code"
+    ],
+    // Agents keep skills in $HOME, which templates like ai-agent mount as a
+    // named volume. Docker only copies image content into a volume on first
+    // mount, so a rebuild would leave stale skills behind. Refresh after the
+    // volumes are attached instead of trusting the image copy.
+    "postCreateCommand": "/usr/local/bin/install-agent-skills || true"
+}
