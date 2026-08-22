@@ -12,6 +12,7 @@ assert_successful_code gh --version
 assert_successful_code uv --version
 assert_successful_code claude --version
 assert_successful_code pi --version
+assert_successful_code dsh --version
 assert_successful_code pdftotext -v
 assert_successful_code tesseract --version
 assert_successful_code zbarimg --version

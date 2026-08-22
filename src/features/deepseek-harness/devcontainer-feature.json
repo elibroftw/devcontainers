@@ -1,0 +1,11 @@
+{
+    "name": "DeepSeek Harness",
+    "id": "deepseek-harness",
+    "version": "0.0.1",
+    "description": "Installs the DeepSeek Harness (dsh) agent harness from npm; its web UI serves on port 3080. Requires nodejs to be preinstalled (e.g. the frontend feature)",
+    "documentationURL": "https://github.com/deepseek-ai/deepseek-harness#readme",
+    "options": {},
+    "installsAfter": [
+        "frontend"
+    ]
+}

@@ -47,6 +47,7 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
 | `ai-agent-tools` | Document extraction and OCR: poppler-utils, tesseract, ImageMagick, unpaper, zbar, ocrmypdf, docling; plus runpodctl for RunPod GPU pods |
 | `claude-code` | The Claude Code CLI and its VS Code extension |
 | `csharp` | .NET SDK (channel configurable, defaults to LTS) and the C# Dev Kit extension |
+| `deepseek-harness` | DeepSeek Harness (`dsh`), DeepSeek's coding agent, web UI on port 3080 (needs the `frontend` feature's node) |
 | `ffmpeg` | FFmpeg from RPM Fusion, rather than EPEL's codec-stripped `ffmpeg-free` |
 | `frontend` | nvm, node LTS, corepack (yarn, pnpm), typescript, ts-node |
 | `github-cli` | `gh` |
@@ -68,7 +69,7 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
   - dotnet, nvm, typescript, ts-node, pnpm, psql, pi, and the C# skills find-skills, dotnet-best-practices, csharp-developer
   - can be used for backend-only and frontend-only projects
 - `/templates/ai-agent`
-  - Claude Code, pi, gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
+  - Claude Code, pi, DeepSeek Harness (`dsh web` on port 3080), gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
   - A sandbox for letting a coding agent run against a repo. Deliberately has no
     docker socket mount — that would hand the agent root on the host.
 

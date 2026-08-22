@@ -6,6 +6,7 @@
 	"features": {
 		"ghcr.io/elibroftw/devcontainers/features/claude-code": {},
 		"ghcr.io/elibroftw/devcontainers/features/pi-coding-agent": {},
+		"ghcr.io/elibroftw/devcontainers/features/deepseek-harness": {},
 		"ghcr.io/elibroftw/devcontainers/features/github-cli": {},
 		"ghcr.io/elibroftw/devcontainers/features/python": {},
 		"ghcr.io/elibroftw/devcontainers/features/ai-agent-tools": {},
@@ -23,10 +24,11 @@
 	"mounts": [
 		// agent config, credentials, and session history survive a rebuild
 		"source=ai-agent-claude,target=/home/vscode/.claude,type=volume",
-		"source=ai-agent-pi,target=/home/vscode/.pi,type=volume"
+		"source=ai-agent-pi,target=/home/vscode/.pi,type=volume",
+		"source=ai-agent-dsh,target=/home/vscode/.dsh,type=volume"
 	],
 	// 👇 Named volumes are created root-owned, so hand it to the remote user
-	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.pi",
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.pi /home/vscode/.dsh",
 
 	// 👇 Gives the container a name that resolves to the host, so it can call
 	// 	services you are running out there (chandra, surya, ollama, a local API).
@@ -59,10 +61,11 @@
 		"SURYA_INFERENCE_URL": "http://host.docker.internal:8001/v1"
 	},
 
-	// common ports for whatever the agent is building (e.g. astro, flask / ASP.NET, blog post)
+	// 3080 is the DeepSeek Harness web UI (`dsh web`); the rest are common ports for
+	// 	whatever the agent is building (e.g. astro, flask / ASP.NET, blog post).
 	// NOTE: 8000 and 8001 are left out on purpose. Forwarding a port the host is already
 	// 	serving on is the fastest way to confuse yourself about which end answered.
-	"forwardPorts": [3000, 4321, 8080, 5000, 5001, 5002],
+	"forwardPorts": [3080, 3000, 4321, 8080, 5000, 5001, 5002],
 
 	// 👇 Configure tool-specific properties.
 	"customizations": {

@@ -101,6 +101,26 @@ Ollama (`OLLAMA_HOST=http://host.docker.internal:11434`), a database, a staging 
 — it is always the same three steps: bind beyond loopback, give the container a name
 for the host, open the firewall to the bridge.
 
+## The DeepSeek Harness web UI
+
+`dsh web` serves the harness's browser UI on `127.0.0.1:3080`, which this template forwards.
+Two flags matter inside a container:
+
+```bash
+# nothing in here can open a browser, and dsh tries to on a local launch
+dsh web --no-open
+
+# only needed to reach it from outside VS Code's forwarder (LAN, plain docker -p);
+# the /api trust fence has to be told the authority the browser will actually show
+dsh web --host 0.0.0.0 --trusted-host <authority>
+```
+
+Give it a model under **Settings → Models**, or export `DEEPSEEK_API_KEY` on the host —
+`remoteEnv` already passes that one through, and the shipped DeepSeek route reads it per
+request. Settings, credentials, and session history land in `~/.dsh`, a named volume, so
+they survive a rebuild. `dsh --profile headless "run the tests"` answers one task and exits,
+which is the mode to script against.
+
 ## Why there is no docker socket mount
 
 Mounting `/var/run/docker.sock` is the usual way to let a container start containers,
