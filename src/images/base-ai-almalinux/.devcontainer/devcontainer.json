@@ -1,0 +1,65 @@
+{
+	"name": "AlmaLinux AI/ML Base for Devs",
+	"build": {
+		"dockerfile": "Dockerfile",
+		// 👇 Set this to cu126 / cu130 / cu132 and rebuild to get CUDA torch instead
+		// 	of the CPU wheels the published image carries. cu128 and cu129 are still
+		// 	hosted but frozen — cu128 pins torch to 2.11. See the README.
+		"args": {
+			"TORCH_INDEX": "cpu"
+		}
+	},
+	"features": {},
+	// 👇 Weights are downloaded into the host's own Hugging Face cache instead of
+	// 	into the container. The 15 GB model you pulled is still there after a
+	// 	rebuild, is shared with every other container that mounts this path, and is
+	// 	the same cache your host python already reads: huggingface_hub defaults to
+	// 	~/.cache/huggingface on Windows and macOS as well as Linux.
+	// 	Swap in "source=huggingface,target=/home/vscode/.cache/huggingface,type=volume"
+	// 	if you would rather keep tens of GB of weights out of your home directory.
+	// 	The base image's .ssh and Downloads mounts are inherited, not repeated here.
+	"mounts": [
+		"type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.cache/huggingface,target=/home/vscode/.cache/huggingface"
+	],
+	// 👇 Docker creates a missing bind mount source root owned, so claim it. Not
+	// 	recursive on purpose: an already populated cache is tens of thousands of
+	// 	files, and on Docker Desktop the chown is a no-op the daemon may refuse.
+	// 	The second half is the loud part: if ${localEnv:HOME}${localEnv:USERPROFILE}
+	// 	resolved to nonsense (both are set when you run from Git Bash, and they get
+	// 	concatenated), docker creates that path instead of failing, and the cache
+	// 	silently stops persisting. Say so rather than let it look like it worked.
+	"postCreateCommand": "sudo chown vscode: /home/vscode/.cache/huggingface || true; grep -q ' /home/vscode/.cache/huggingface ' /proc/mounts || echo 'WARNING: HF_HOME is not a mount point, so downloaded weights will not survive a rebuild or reach the host cache. See the image README.'",
+	// 👇 Read from the host at attach time rather than baked into a layer, so the
+	// 	token never lands in the image or in `docker inspect` output. An HF_TOKEN
+	// 	that is unset on the host resolves to an empty string, which huggingface_hub
+	// 	reads as "no token" rather than as a bad one. The base image also ships
+	// 	infisical if you would rather fetch it at runtime.
+	"remoteEnv": {
+		"HF_TOKEN": "${localEnv:HF_TOKEN}"
+	},
+	// 👇 "optional" adds --gpus all when docker reports an nvidia runtime, and skips
+	// 	it silently otherwise, so the image still starts with no NVIDIA stack.
+	// 	NOTE this one does not survive into the published image the way the mount and
+	// 	remoteEnv do: the CLI only reads hostRequirements from the local config, so a
+	// 	downstream devcontainer.json that just references the image has to repeat it.
+	// 	The published image is CPU torch anyway; see the README for the CUDA rebuild.
+	"hostRequirements": {
+		"gpu": "optional"
+	},
+	// 👇 Gradio and Jupyter. The base image's web ports are inherited.
+	"forwardPorts": [7860, 8888],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers"
+			],
+			"settings": {
+				// 👇 Point the tooling at the shared venv, which is not a .venv in
+				// 	the workspace and so is not auto-discovered.
+				"python.defaultInterpreterPath": "/opt/ai/bin/python"
+			}
+		}
+	},
+	"remoteUser": "vscode"
+}

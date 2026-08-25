@@ -43,16 +43,20 @@ args = parser.parse_args()
 # )
 
 
-def docker_build(image_dir):
-    # if not (image_dir / 'Dockerfile').exists():
-    #     raise ValueError(f'ERROR: {image_dir} contains no Dockerfile')
-    tag_base = image_dir.name
-    version = "latest"
+def read_manifest(image_dir):
     # support tagged versions for people who stability (not me)
     # do not use git tags for all images!
     with suppress(FileNotFoundError):
         with open(image_dir / "manifest.json", encoding="utf-8") as fp:
-            version = json.load(fp)["version"]
+            return json.load(fp)
+    return {}
+
+
+def docker_build(image_dir):
+    # if not (image_dir / 'Dockerfile').exists():
+    #     raise ValueError(f'ERROR: {image_dir} contains no Dockerfile')
+    tag_base = image_dir.name
+    version = read_manifest(image_dir).get("version", "latest")
     versioned_image_name = f"{args.registry}/{args.namespace}/{tag_base}:{version}"
     latest_image_name = f"{args.registry}/{args.namespace}/{tag_base}:latest"
     print(
@@ -72,18 +76,47 @@ def docker_build(image_dir):
     )
 
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-    futures = []
-    for dir in Path(args.images_dir).iterdir():
-        if dir.is_dir():
-            futures.append(executor.submit(docker_build, dir))
-    success = 0
-    for future in concurrent.futures.as_completed(futures):
-        try:
-            future.result()
-            success += 1
-        except (ValueError, subprocess.CalledProcessError) as e:
-            print(e, file=sys.stderr)
-    if success == 0:
-        print("Not a single image was successfully built", file=sys.stderr)
-        sys.exit(1)
+# An image whose Dockerfile says FROM another image in here declares that as
+# `"dependsOn": ["base-almalinux"]`. Without it the two builds race, and the
+# derived image is built against whatever was published on the previous run, so a
+# base image fix takes two runs to reach the images built on top of it.
+images = {d.name: d for d in Path(args.images_dir).iterdir() if d.is_dir()}
+depends_on = {
+    # a dependency outside this directory is somebody else's registry, not ours to order
+    name: {d for d in read_manifest(d_path).get("dependsOn", []) if d in images}
+    for name, d_path in images.items()
+}
+
+
+# in waves: everything whose dependencies are already pushed, in parallel
+built = set()
+failed = set()
+pending = set(images)
+while pending:
+    ready = sorted(name for name in pending if depends_on[name] <= built)
+    if not ready:
+        # either a dependency failed, or two manifests point at each other
+        blocked = sorted(name for name in pending if depends_on[name] & failed)
+        for name in blocked or sorted(pending):
+            reason = "a dependency failed" if blocked else "a dependsOn cycle"
+            print(f"skipping {name}: {reason}", file=sys.stderr)
+        failed |= pending
+        break
+    pending -= set(ready)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {executor.submit(docker_build, images[name]): name for name in ready}
+        for future in concurrent.futures.as_completed(futures):
+            name = futures[future]
+            try:
+                future.result()
+                built.add(name)
+            except (ValueError, subprocess.CalledProcessError) as e:
+                print(e, file=sys.stderr)
+                failed.add(name)
+
+if not built:
+    print("Not a single image was successfully built", file=sys.stderr)
+    sys.exit(1)
+if failed:
+    print(f"failed to build: {', '.join(sorted(failed))}", file=sys.stderr)
+    sys.exit(1)

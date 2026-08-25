@@ -38,6 +38,20 @@ AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base
 - ripgrep (grep successor)
 - infisical (secret management)
 
+AI/ML Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base-ai-almalinux`
+
+Everything above, plus a torch stack preinstalled in a shared venv at `/opt/ai`, first on `PATH`.
+[Details](src/images/base-ai-almalinux/README.md)
+
+- `torch` and `torchvision` (CPU wheels; [rebuild with `TORCH_INDEX=cu130`](src/images/base-ai-almalinux/README.md#gpu-builds) for CUDA)
+- `transformers` and `accelerate`
+- `librosa` for audio, with libsndfile vendored in its `soundfile` wheel
+- `huggingface_hub`, with the `hf` CLI and Xet transfers
+- `HF_TOKEN` passed through from your host environment at attach time, never baked into a layer
+- the host's `~/.cache/huggingface` bind mounted in, so weights are downloaded once and every
+  container that mounts it shares the one copy
+- `uv pip install <pkg>` lands in the shared venv without sudo or an activate
+
 ## Features
 
 Add these to the `"features"` field of your `devcontainer.json`, namespaced under `ghcr.io/elibroftw/devcontainers/features/`.

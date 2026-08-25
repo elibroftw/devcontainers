@@ -1,6 +1,11 @@
 {
 	"name": "AlmaLinux AI Agent Sandbox",
-	"image": "ghcr.io/elibroftw/devcontainers/images/base-almalinux",
+	// 👇 The AI base image: everything in base-almalinux plus torch, transformers,
+	// 	librosa and the hf CLI in a shared venv at /opt/ai, uv system wide, and the
+	// 	host's ~/.cache/huggingface mounted in with HF_TOKEN passed through. Those
+	// 	last two are inherited from the image's own metadata, which is why you will
+	// 	not find them repeated below.
+	"image": "ghcr.io/elibroftw/devcontainers/images/base-ai-almalinux",
 
 	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
 	"features": {
@@ -8,8 +13,10 @@
 		"ghcr.io/elibroftw/devcontainers/features/pi-coding-agent": {},
 		"ghcr.io/elibroftw/devcontainers/features/deepseek-harness": {},
 		"ghcr.io/elibroftw/devcontainers/features/github-cli": {},
-		"ghcr.io/elibroftw/devcontainers/features/python": {},
+		// 👇 No python feature: the AI base image already ships uv system wide and a
+		// 	managed CPython 3.12. Its `uv sync` on attach is carried below instead.
 		"ghcr.io/elibroftw/devcontainers/features/ai-agent-tools": {},
+		// nodejs
 		"ghcr.io/elibroftw/devcontainers/features/frontend": {},
 		// find-skills is the default skill; it teaches the agent to discover and
 		// install the rest from https://skills.sh itself.
@@ -29,12 +36,22 @@
 	],
 	// 👇 Named volumes are created root-owned, so hand it to the remote user
 	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.pi /home/vscode/.dsh",
+	// 👇 What the python feature used to contribute. uv itself now comes from the base image
+	"postAttachCommand": "(test -f pyproject.toml && uv sync) || true",
 
 	// 👇 Gives the container a name that resolves to the host, so it can call
 	// 	services you are running out there (chandra, surya, ollama, a local API).
 	// 	Docker Desktop defines this for you; on Linux you have to ask for it.
 	// 	Podman already provides host.containers.internal and ignores this.
 	"runArgs": ["--add-host=host.docker.internal:host-gateway"],
+
+	// 👇 Repeated from the base image on purpose. hostRequirements IS stored in image
+	// 	metadata, but the CLI only ever reads it from the local config, so an image
+	// 	that declares it does not pass it on. "optional" adds --gpus all when docker
+	// 	reports an nvidia runtime and skips it silently otherwise.
+	"hostRequirements": {
+		"gpu": "optional"
+	},
 
 	// 👇 Pass your keys through from the host instead of baking them into the image.
 	// 	pi and claude read provider keys straight from the environment, so a key
@@ -51,6 +68,9 @@
 		"GROQ_API_KEY": "${localEnv:GROQ_API_KEY}",
 		"MISTRAL_API_KEY": "${localEnv:MISTRAL_API_KEY}",
 		"RUNPOD_API_KEY": "${localEnv:RUNPOD_API_KEY}",
+		// 👇 Also inherited from the AI base image; restated so this file lists every
+		// 	key in one place. Gated and private Hub repos need it, public weights do not.
+		"HF_TOKEN": "${localEnv:HF_TOKEN}",
 
 		// 👇 chandra and surya are installed as clients only. Point them at the vLLM
 		// 	server on the host, where the GPU and the weights are. See NOTES.md.
