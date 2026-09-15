@@ -12,6 +12,10 @@
 		"ghcr.io/elibroftw/devcontainers/features/claude-code": {},
 		"ghcr.io/elibroftw/devcontainers/features/pi-coding-agent": {},
 		"ghcr.io/elibroftw/devcontainers/features/deepseek-harness": {},
+		// 👇 Use `oh` rather than `openhands`: openhands reads only LLM_API_KEY /
+		// 	LLM_MODEL / LLM_BASE_URL, so the wrapper maps whichever provider key
+		// 	below matches LLM_MODEL. Set `model` here to pick a default.
+		"ghcr.io/elibroftw/devcontainers/features/openhands": {},
 		"ghcr.io/elibroftw/devcontainers/features/github-cli": {},
 		// 👇 No python feature: the AI base image already ships uv system wide and a
 		// 	managed CPython 3.12. Its `uv sync` on attach is carried below instead.
@@ -21,7 +25,7 @@
 		// find-skills is the default skill; it teaches the agent to discover and
 		// install the rest from https://skills.sh itself.
 		"ghcr.io/elibroftw/devcontainers/features/skills": {
-			"agents": "pi claude-code"
+			"agents": "pi claude-code openhands"
 		}
 	},
 
@@ -32,10 +36,11 @@
 		// agent config, credentials, and session history survive a rebuild
 		"source=ai-agent-claude,target=/home/vscode/.claude,type=volume",
 		"source=ai-agent-pi,target=/home/vscode/.pi,type=volume",
-		"source=ai-agent-dsh,target=/home/vscode/.dsh,type=volume"
+		"source=ai-agent-dsh,target=/home/vscode/.dsh,type=volume",
+		"source=ai-agent-openhands,target=/home/vscode/.openhands,type=volume"
 	],
 	// 👇 Named volumes are created root-owned, so hand it to the remote user
-	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.pi /home/vscode/.dsh",
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude /home/vscode/.pi /home/vscode/.dsh /home/vscode/.openhands",
 	// 👇 What the python feature used to contribute. uv itself now comes from the base image
 	"postAttachCommand": "(test -f pyproject.toml && uv sync) || true",
 
@@ -72,6 +77,14 @@
 		// 	key in one place. Gated and private Hub repos need it, public weights do not.
 		"HF_TOKEN": "${localEnv:HF_TOKEN}",
 
+		// 👇 The only three variables openhands itself reads. Leave them unset and the
+		// 	`oh` wrapper fills LLM_API_KEY in from whichever key above matches
+		// 	LLM_MODEL; set them here and they win. LLM_BASE_URL is for a proxy,
+		// 	Ollama, or any other OpenAI compatible endpoint.
+		"LLM_API_KEY": "${localEnv:LLM_API_KEY}",
+		"LLM_MODEL": "${localEnv:LLM_MODEL}",
+		"LLM_BASE_URL": "${localEnv:LLM_BASE_URL}",
+
 		// 👇 chandra and surya are installed as clients only. Point them at the vLLM
 		// 	server on the host, where the GPU and the weights are. See NOTES.md.
 		// 	One vLLM process serves one model, so they get separate ports.
@@ -81,11 +94,12 @@
 		"SURYA_INFERENCE_URL": "http://host.docker.internal:8001/v1"
 	},
 
-	// 3080 is the DeepSeek Harness web UI (`dsh web`); the rest are common ports for
-	// 	whatever the agent is building (e.g. astro, flask / ASP.NET, blog post).
+	// 3080 is the DeepSeek Harness web UI (`dsh web`) and 12000 is the OpenHands one
+	// 	(`oh web` — not the 3000 its docker-only `serve` mode advertises). The rest are
+	// 	common ports for whatever the agent is building (astro, flask / ASP.NET, a blog).
 	// NOTE: 8000 and 8001 are left out on purpose. Forwarding a port the host is already
 	// 	serving on is the fastest way to confuse yourself about which end answered.
-	"forwardPorts": [3080, 3000, 4321, 8080, 5000, 5001, 5002],
+	"forwardPorts": [3080, 12000, 3000, 4321, 8080, 5000, 5001, 5002],
 
 	// 👇 Configure tool-specific properties.
 	"customizations": {

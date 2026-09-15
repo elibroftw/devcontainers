@@ -1,7 +1,7 @@
 {
     "name": "Skills",
     "id": "skills",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Installs agent skills from the open skills ecosystem (skills.sh) via `npx skills add`; ships find-skills by default so an agent can discover the rest. Requires nodejs to be preinstalled (e.g. the frontend feature)",
     "options": {
         "skills": {
@@ -18,16 +18,18 @@
             "type": "string",
             "proposals": [
                 "pi",
-                "pi claude-code"
+                "pi claude-code",
+                "pi claude-code openhands"
             ],
             "default": "pi",
-            "description": "Space separated agent ids accepted by `npx skills add --agent`. pi lands in ~/.pi/agent/skills, claude-code in ~/.claude/skills"
+            "description": "Space separated agent ids accepted by `npx skills add --agent`. pi lands in ~/.pi/agent/skills, claude-code in ~/.claude/skills, openhands in ~/.openhands/skills"
         }
     },
     "installsAfter": [
         "frontend",
         "pi-coding-agent",
-        "claude-code"
+        "claude-code",
+        "openhands"
     ],
     // Agents keep skills in $HOME, which templates like ai-agent mount as a
     // named volume. Docker only copies image content into a volume on first

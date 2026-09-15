@@ -1,0 +1,34 @@
+{
+    "name": "OpenHands",
+    "id": "openhands",
+    "version": "0.0.1",
+    "description": "Installs the OpenHands CLI (the PyPI `openhands` package) with uv tool, plus tmux for its terminal backend and an `oh` wrapper that hands it the provider key already in the environment. The agent runs in-process against a local workspace, so no docker socket is needed; `openhands serve` is the one mode that wants Docker and exits without it",
+    "documentationURL": "https://docs.openhands.dev/openhands/usage/cli/installation",
+    "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "1.16.0",
+                "latest"
+            ],
+            "default": "1.16.0",
+            "description": "PyPI version of `openhands` to install. Upstream marked the CLI repository no longer actively maintained in August 2026 and 1.16.0 is the last release, so pinning costs nothing here. `latest` floats instead."
+        },
+        "model": {
+            "type": "string",
+            "proposals": [
+                "",
+                "anthropic/claude-sonnet-4-5-20250929",
+                "openrouter/anthropic/claude-sonnet-4.5"
+            ],
+            "default": "",
+            "description": "Default litellm model id for the `oh` wrapper, used when LLM_MODEL is unset. The wrapper reads the matching provider key out of the environment (anthropic/* takes ANTHROPIC_API_KEY, openrouter/* takes OPENROUTER_API_KEY, and so on). Blank leaves `oh` behaving like plain `openhands` until you export LLM_MODEL yourself."
+        }
+    },
+    "installsAfter": [
+        "python"
+    ],
+    "containerEnv": {
+        "OPENHANDS_SUPPRESS_BANNER": "1"
+    }
+}

@@ -35,6 +35,7 @@ AlamLinux Base Image Dev Container: `ghcr.io/elibroftw/devcontainers/images/base
 - `yq` (like jq, but supports yaml and toml files)
 - ansible (for deployment)
 - eza (ls successor)
+- zoxide (cd successor, `z` jumps to a directory by frecency)
 - ripgrep (grep successor)
 - infisical (secret management)
 
@@ -65,6 +66,7 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
 | `ffmpeg` | FFmpeg from RPM Fusion, rather than EPEL's codec-stripped `ffmpeg-free` |
 | `frontend` | nvm, node LTS, corepack (yarn, pnpm), typescript, ts-node |
 | `github-cli` | `gh` |
+| `openhands` | The OpenHands CLI (`openhands`, plus an `oh` wrapper that maps your provider keys), tmux, no docker socket needed |
 | `pi-coding-agent` | The pi coding agent CLI from npm (needs the `frontend` feature's node) |
 | `postgresql-client` | `psql` |
 | `python` | `uv`, and optionally a Python version for it to manage |
@@ -83,7 +85,9 @@ Add these to the `"features"` field of your `devcontainer.json`, namespaced unde
   - dotnet, nvm, typescript, ts-node, pnpm, psql, pi, and the C# skills find-skills, dotnet-best-practices, csharp-developer
   - can be used for backend-only and frontend-only projects
 - `/templates/ai-agent`
-  - Claude Code, pi, DeepSeek Harness (`dsh web` on port 3080), gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
+  - Claude Code, pi, DeepSeek Harness (`dsh web` on port 3080), OpenHands (`oh`, `oh web` on port 12000), gh, uv, nvm, OCR and PDF extraction, plus the base image's git, ripgrep, yq, and just
+  - Built on `base-ai-almalinux`, so torch, transformers, librosa and the `hf` CLI are already
+    there and the host's Hugging Face cache is mounted in
   - A sandbox for letting a coding agent run against a repo. Deliberately has no
     docker socket mount — that would hand the agent root on the host.
 

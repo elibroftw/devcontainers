@@ -49,8 +49,10 @@ RUN curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/
 ENV PATH="${PATH}:/nix/var/nix/profiles/default/bin"
 RUN nix run nixpkgs#hello
 
-# Install eza via nix
-RUN nix profile install nixpkgs#eza
+# Install eza and zoxide via nix
+RUN nix profile install nixpkgs#eza nixpkgs#zoxide
+
+COPY ./zoxide.sh /etc/profile.d/zoxide.sh
 
 # Install powershell
 RUN dnf install -y krb5-libs libicu openssl-libs zlib
@@ -66,6 +68,11 @@ RUN latest_release=$(curl -s https://api.github.com/repos/PowerShell/PowerShell/
     rpmlink=$(echo "$latest_release" | arch=$(arch) yq -r '[.assets[] | select(.name == ("*" + strenv(arch) + ".rpm")) | .browser_download_url][0]') && \
     rpm -Uvh --nodeps  $rpmlink
 
+# The pwsh half of /etc/profile.d/zoxide.sh. AllUsersAllHosts is $PSHOME/profile.ps1,
+# so this has to come after powershell exists. Single quotes keep $PROFILE away
+# from /bin/sh so pwsh is the one that expands it.
+RUN pwsh -NoProfile -Command 'Add-Content -Path $PROFILE.AllUsersAllHosts -Value "if (Get-Command zoxide -ErrorAction SilentlyContinue) { Invoke-Expression (& { (zoxide init powershell | Out-String) }) }"'
+
 # Create the user
 # https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user#_change-the-uidgid-of-an-existing-container-user
 ARG USERNAME=vscode
@@ -80,7 +87,11 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 # persist bash history
 # user instructions: https://code.visualstudio.com/remote/advancedcontainers/persist-bash-history
-RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+# `history -a` is prepended to PROMPT_COMMAND rather than assigned over it:
+# /etc/profile.d/zoxide.sh runs first and has already put __zoxide_hook there, and
+# a plain assignment would drop it, leaving `z` with a database nothing ever writes
+# to. Stripping its own leading copy first keeps re-sourcing ~/.bashrc idempotent.
+RUN SNIPPET='export PROMPT_COMMAND="history -a;${PROMPT_COMMAND#history -a;}" && export HISTFILE=/commandhistory/.bash_history' \
   && mkdir /commandhistory \
   && touch /commandhistory/.bash_history \
   && chown -R $USERNAME /commandhistory \

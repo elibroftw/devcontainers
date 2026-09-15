@@ -16,7 +16,7 @@ Installs agent skills from the open skills ecosystem (skills.sh) via `npx skills
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | skills | Space separated skill sources. owner/repo installs every skill in the repository; owner/repo@skill installs just that one. Browse https://skills.sh | string | vercel-labs/skills@find-skills |
-| agents | Space separated agent ids accepted by `npx skills add --agent`. pi lands in ~/.pi/agent/skills, claude-code in ~/.claude/skills | string | pi |
+| agents | Space separated agent ids accepted by `npx skills add --agent`. pi lands in ~/.pi/agent/skills, claude-code in ~/.claude/skills, openhands in ~/.openhands/skills | string | pi |
 
 
 
